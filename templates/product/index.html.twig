@@ -14,7 +14,7 @@
                 <th>Description</th>
                 <th>Image</th>
                 <th>Color</th>
-                <th>Category</th>
+                {# <th>Category</th> #}
                 <th>Stock</th>
                 <th>Status</th>
                 <th>actions</th>
@@ -30,7 +30,7 @@
                 <td>{{ product.image }}</td>
                 <td>{{ product.color }}</td>
                 {# {% if product.category %} #}
-                    <td>{{ product.category.name }}</td>
+                    {# <td>{{ product.category.name }}</td> #}
                 {# {% endif %} #}
                 <td>{{ product.stock }}</td>
                 <td>{{ product.status ? 'Yes' : 'No' }}</td>
