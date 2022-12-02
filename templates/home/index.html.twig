@@ -8,6 +8,12 @@
 		<section>
 			<h2>{{ article.title }}</h2>
 			<p>{{ article.content }}</p>
+            {% if article.createdAt == article.updatedAt %}
+                <p>Creation date: {{ article.createdAt|date('Y-m-d H:i') }}</p>
+            {% else %}
+                <p>Creation date: {{ article.createdAt|date('Y-m-d H:i') }}</p>
+                <p>Last updated: {{ article.updatedAt|date('Y-m-d H:i') }}</p>
+            {% endif %}
 			{% if article.author %}
 				<p class="article_author">
 					Auteur:
