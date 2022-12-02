@@ -5,24 +5,34 @@
 
 {% block body %}
 	{% for article in articles %}
-		<section>
-			<h2>{{ article.title }}</h2>
-			<p>{{ article.content }}</p>
-            {% if article.createdAt == article.updatedAt %}
-                <p>Creation date: {{ article.createdAt|date('Y-m-d H:i') }}</p>
-            {% else %}
-                <p>Creation date: {{ article.createdAt|date('Y-m-d H:i') }}</p>
-                <p>Last updated: {{ article.updatedAt|date('Y-m-d H:i') }}</p>
-            {% endif %}
-			{% if article.author %}
-				<p class="article_author">
-					Auteur:
-					{{ article.author.name }}
-					{{ article.author.firstname }}
-				</p>
-			{% endif %}
-			<div class="action_button_container">
+
+		<div class="card mt-3">
+			<h5 class="card-header">{{ article.title }}</h5>
+			<div class="card-body">
+				<p class="card-text">{{ article.content }}</p>
+
 			</div>
-		</section>
+			<div class="card-footer text-muted">
+
+				{% if article.createdAt == article.updatedAt %}
+					Creation date:
+					{{ article.createdAt|date('Y-m-d H:i') }}
+				{% else %}
+					Creation date:
+					{{ article.createdAt|date('Y-m-d H:i') }}, last updated:
+					{{ article.updatedAt|date('Y-m-d H:i') }}
+				{% endif %}
+
+				{% if article.author %}
+					<p class="article_author">
+						Auteur:
+						{{ article.author.name }}
+						{{ article.author.firstname }}
+					</p>
+				{% endif %}
+
+			</div>
+		</div>
+
 	{% endfor %}
 {% endblock %}
