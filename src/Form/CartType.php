@@ -12,8 +12,10 @@ class CartType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('amount')
-            ->add('user')
+            ->add('quantity')
+            ->add('color')
+            ->add('id_product')
+            ->add('id_buyer')
         ;
     }
 

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -35,6 +37,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255)]
     private ?string $surname = null;
+
+    #[ORM\OneToMany(mappedBy: 'id_seller', targetEntity: Product::class)]
+    private Collection $products;
+
+    #[ORM\OneToMany(mappedBy: 'id_buyer', targetEntity: Cart::class)]
+    private Collection $carts;
+
+    public function __construct()
+    {
+        $this->products = new ArrayCollection();
+        $this->carts = new ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
+    }
 
     public function getId(): ?int
     {
@@ -129,4 +148,65 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Product>
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    public function addProduct(Product $product): self
+    {
+        if (!$this->products->contains($product)) {
+            $this->products->add($product);
+            $product->setIdSeller($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Product $product): self
+    {
+        if ($this->products->removeElement($product)) {
+            // set the owning side to null (unless already changed)
+            if ($product->getIdSeller() === $this) {
+                $product->setIdSeller(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Cart>
+     */
+    public function getCarts(): Collection
+    {
+        return $this->carts;
+    }
+
+    public function addCart(Cart $cart): self
+    {
+        if (!$this->carts->contains($cart)) {
+            $this->carts->add($cart);
+            $cart->setIdBuyer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCart(Cart $cart): self
+    {
+        if ($this->carts->removeElement($cart)) {
+            // set the owning side to null (unless already changed)
+            if ($cart->getIdBuyer() === $this) {
+                $cart->setIdBuyer(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

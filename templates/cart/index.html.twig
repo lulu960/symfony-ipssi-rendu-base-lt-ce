@@ -9,7 +9,8 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Amount</th>
+                <th>Quantity</th>
+                <th>Color</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -17,7 +18,8 @@
         {% for cart in carts %}
             <tr>
                 <td>{{ cart.id }}</td>
-                <td>{{ cart.amount }}</td>
+                <td>{{ cart.quantity }}</td>
+                <td>{{ cart.color }}</td>
                 <td>
                     <a href="{{ path('app_cart_show', {'id': cart.id}) }}">show</a>
                     <a href="{{ path('app_cart_edit', {'id': cart.id}) }}">edit</a>
@@ -25,7 +27,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">no records found</td>
+                <td colspan="4">no records found</td>
             </tr>
         {% endfor %}
         </tbody>

@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\CartRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CartRepository::class)]
@@ -15,75 +13,67 @@ class Cart
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\OneToMany(mappedBy: 'cart', targetEntity: Product::class)]
-    private Collection $product;
+    #[ORM\ManyToOne(inversedBy: 'carts')]
+    private ?product $id_product = null;
 
     #[ORM\Column]
-    private ?int $amount = null;
+    private ?int $quantity = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?User $user = null;
+    #[ORM\Column(length: 255)]
+    private ?string $color = null;
 
-    public function __construct()
-    {
-        $this->product = new ArrayCollection();
-    }
+    #[ORM\ManyToOne(inversedBy: 'carts')]
+    private ?User $id_buyer = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * @return Collection<int, Product>
-     */
-    public function getProduct(): Collection
+    public function getIdProduct(): ?product
     {
-        return $this->product;
+        return $this->id_product;
     }
 
-    public function addProduct(Product $product): self
+    public function setIdProduct(?product $id_product): self
     {
-        if (!$this->product->contains($product)) {
-            $this->product->add($product);
-            $product->setCart($this);
-        }
+        $this->id_product = $id_product;
 
         return $this;
     }
 
-    public function removeProduct(Product $product): self
+    public function getQuantity(): ?int
     {
-        if ($this->product->removeElement($product)) {
-            // set the owning side to null (unless already changed)
-            if ($product->getCart() === $this) {
-                $product->setCart(null);
-            }
-        }
+        return $this->quantity;
+    }
+
+    public function setQuantity(int $quantity): self
+    {
+        $this->quantity = $quantity;
 
         return $this;
     }
 
-    public function getAmount(): ?int
+    public function getColor(): ?string
     {
-        return $this->amount;
+        return $this->color;
     }
 
-    public function setAmount(int $amount): self
+    public function setColor(string $color): self
     {
-        $this->amount = $amount;
+        $this->color = $color;
 
         return $this;
     }
 
-    public function getUser(): ?User
+    public function getIdBuyer(): ?User
     {
-        return $this->user;
+        return $this->id_buyer;
     }
 
-    public function setUser(?User $user): self
+    public function setIdBuyer(?User $id_buyer): self
     {
-        $this->user = $user;
+        $this->id_buyer = $id_buyer;
 
         return $this;
     }

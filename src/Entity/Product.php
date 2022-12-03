@@ -19,36 +19,33 @@ class Product
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column]
-    private ?float $price = null;
-
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(length: 255)]
     private ?string $image = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $color = null;
-
     #[ORM\Column]
-    private ?int $stock = null;
-
-    #[ORM\Column]
-    private ?bool $status = null;
+    private ?float $price = null;
 
     #[ORM\ManyToOne(inversedBy: 'products')]
-    private ?User $seller = null;
+    private ?User $id_seller = null;
 
-    #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'products')]
-    private Collection $category;
+    #[ORM\ManyToOne(inversedBy: 'products')]
+    private ?Category $category = null;
 
-    #[ORM\ManyToOne(inversedBy: 'product')]
-    private ?Cart $cart = null;
+    #[ORM\OneToMany(mappedBy: 'id_product', targetEntity: Cart::class)]
+    private Collection $carts;
+
+    #[ORM\Column]
+    private ?int $quantity = null;
+
+    #[ORM\Column(type: Types::ARRAY)]
+    private array $color = [];
 
     public function __construct()
     {
-        $this->category = new ArrayCollection();
+        $this->carts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -64,18 +61,6 @@ class Product
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getPrice(): ?float
-    {
-        return $this->price;
-    }
-
-    public function setPrice(float $price): self
-    {
-        $this->price = $price;
 
         return $this;
     }
@@ -104,92 +89,94 @@ class Product
         return $this;
     }
 
-    public function getColor(): ?string
+    public function getPrice(): ?float
     {
-        return $this->color;
+        return $this->price;
     }
 
-    public function setColor(string $color): self
+    public function setPrice(float $price): self
     {
-        $this->color = $color;
+        $this->price = $price;
 
         return $this;
     }
 
-    public function getStock(): ?int
+    public function getIdSeller(): ?User
     {
-        return $this->stock;
+        return $this->id_seller;
     }
 
-    public function setStock(int $stock): self
+    public function setIdSeller(?User $id_seller): self
     {
-        $this->stock = $stock;
+        $this->id_seller = $id_seller;
 
         return $this;
     }
 
-    public function isStatus(): ?bool
-    {
-        return $this->status;
-    }
-
-    public function setStatus(bool $status): self
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-
-    public function getSeller(): ?User
-    {
-        return $this->seller;
-    }
-
-    public function setSeller(?User $seller): self
-    {
-        $this->seller = $seller;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Category>
-     */
-    public function getCategory(): Collection
+    public function getCategory(): ?Category
     {
         return $this->category;
     }
 
-    public function addCategory(Category $category): self
+    public function setCategory(?Category $category): self
     {
-        if (!$this->category->contains($category)) {
-            $this->category->add($category);
+        $this->category = $category;
+
+        return $this;
+    }
+
+
+    /**
+     * @return Collection<int, Cart>
+     */
+    public function getCarts(): Collection
+    {
+        return $this->carts;
+    }
+
+    public function addCart(Cart $cart): self
+    {
+        if (!$this->carts->contains($cart)) {
+            $this->carts->add($cart);
+            $cart->setIdProduct($this);
         }
 
         return $this;
     }
 
-    public function removeCategory(Category $category): self
+    public function removeCart(Cart $cart): self
     {
-        $this->category->removeElement($category);
+        if ($this->carts->removeElement($cart)) {
+            // set the owning side to null (unless already changed)
+            if ($cart->getIdProduct() === $this) {
+                $cart->setIdProduct(null);
+            }
+        }
 
         return $this;
     }
 
-    public function getCart(): ?Cart
+    public function getQuantity(): ?int
     {
-        return $this->cart;
+        return $this->quantity;
     }
 
-    public function setCart(?Cart $cart): self
+    public function setQuantity(int $quantity): self
     {
-        $this->cart = $cart;
+        $this->quantity = $quantity;
 
         return $this;
     }
 
-    public function __toString()
+    public function getColor(): array
     {
-        return $this->name;
+        return $this->color;
+    }
+
+    public function setColor(array $color): self
+    {
+        $this->color = $color;
+
+        return $this;
     }
 }
