@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Our productflex--grow-0
-{% endblock %}
+{% block title %}Our products{% endblock %}
 
 {% block body %}
 
@@ -18,6 +17,12 @@
 					<div class="card-footer d-flex justify-content-between align-items-center">
 						<small class="text-muted">In {{ product.category.name }}</small>
 						<a class="btn btn-primary btn-sm" href="{{ path('app_product_show', {'id': product.id}) }}">show</a>
+                    {% if is_granted("ROLE_ADMIN") %}
+                        <div class="">
+                            <a class="btn btn-secondary btn-sm" href="{{ path('app_product_edit', {'id': product.id}) }}" class="btn btn-primary btn-sm">Edit</a>
+                            <a class="btn btn-danger btn-sm" href="{{ path('app_product_delete', {'id': product.id}) }}" class="btn btn-danger btn-sm">Delete</a>
+                        </div>
+                    {% endif %}
 					</div>
 				</div>
 			</div>
