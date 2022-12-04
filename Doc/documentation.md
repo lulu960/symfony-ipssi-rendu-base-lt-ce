@@ -1,3 +1,16 @@
+## Introduction
+
+Bonjour Clément,
+
+Tout d'abord merci pour les cours que tu nous as dispensés cette semaine et pour ta sympathie.
+
+Je tiens à préciser que ni Lucas ni moi n'avons eu le temps de travailler ce weekend car nous avions tout les deux des choses de prévues. Le travail que tu trouveras ici est donc le resultat du travail que nous avons effectué en cours et un peu ce soir, le dimanche à partir de 21h.
+
+Nous avons bien avancé, il nous manque principalement le panier et le tri des articles et produits par ordre. Je te laisse découvrir notre projet. Tu trouveras la base de données sql dans ce document.
+
+À bientôt peut-être,
+Corentin E & Lucas I
+
 ## Our Entities
 
 - User (Client/Vendeur/Admin)
