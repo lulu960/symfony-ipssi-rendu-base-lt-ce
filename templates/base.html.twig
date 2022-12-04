@@ -23,7 +23,7 @@
 				<span class="navbar-toggler-icon"></span>
 			</button>
 
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<div class="collapse navbar-collapse mx-4" id="navbarSupportedContent">
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item active">
 						<a class="nav-link" href="{{ path('app_home') }}">Home</a>
@@ -41,11 +41,14 @@
                             <a class="nav-link" href="{{ path('app_user_show', {'id': app.user.id}) }}">Profil</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
+                            <a class="nav-link" href="{{ path('app_logout') }}">Log out</a>
                         </li>
 					{% else %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('app_login') }}">Se Connecter</a>
+                            <a class="nav-link" href="{{ path('app_login') }}">Log in</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_register') }}">Register</a>
                         </li>
 					{% endif %}
 					{% if is_granted("ROLE_ADMIN") %}
