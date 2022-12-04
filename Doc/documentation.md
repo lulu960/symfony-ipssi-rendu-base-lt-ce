@@ -1,4 +1,4 @@
-## Entités
+## Our Entities
 
 - User (Client/Vendeur/Admin)
     - name - varchar 255
@@ -15,7 +15,7 @@
     - status (published / drafted) - boolean
     - createdAt - dateTime
     - updatedAt - dateTime
-- Product (ajouter UN SEUL paramètre personnalisé tel qu'une couleur, une marque etc.)
+- Product
     - name - varchar 255
     - price - float
     - description - text
@@ -29,22 +29,22 @@
     - product - relation Product
     - amount - Int
 
-### Pages visitor
+### Pages visitor content
 
 - Articles
     - view articles (3 derniers articles du plus récent au plus ancien)
 - Products
     - view all products
-    - Formulaire permettant de trier par :
-        - prix
-        - vendeur
-        - catégorie
-        - liste par défaut les articles des plus vieux au plus récent
-        - doit aussi permettre d'ordonner par date de création (ASC ou DESC)
+    - form to sort by:
+        - price
+        - seller
+        - category
+        - articles from old to new
+        - choose to order from ASC ou DESC
 - Connection
 - Create account
 
-### Pages buyer
+### Pages buyer content
 
 - Articles
     - view all articles
@@ -62,7 +62,7 @@
     - Edit profile (name, surname, email, status)
     - Edit password
 
-### Pages seller
+### Pages seller content
 
 - Articles
     - view all articles
@@ -83,7 +83,7 @@
     - Edit profile (name, surname, email, status)
     - Edit password
 
-### Pages admin (different header)
+### Pages admin content (different header)
 
 - Articles
     - view articles

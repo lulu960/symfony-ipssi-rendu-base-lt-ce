@@ -4,7 +4,12 @@
 
 {% block body %}
 
-	<div class="row row-cols-1 row-cols-md-3 g-4 mt-1">
+    <h3 class="my-3">The shop</h3>
+    <p class=" lead my-1">Have a look at our cool products.</p>
+    <a class="btn btn-primary btn-sm mt-3" href="{{ path('app_product_new') }}" class="btn btn-primary btn-sm">Create new product</a>
+
+
+	<div class="row row-cols-1 row-cols-md-3 g-4 my-2">
 		{% for product in products %}
 			<div class="col">
 				<div

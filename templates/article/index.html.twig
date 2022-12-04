@@ -6,7 +6,7 @@
 
 {% for article in articles %}
 
-		<div class="card my-3">
+		<div class="card mt-3">
 			<h5 class="card-header">{{ article.title }}</h5>
 			<div class="card-body">
 				<p class="card-text">{{ article.content }}</p>
@@ -16,21 +16,21 @@
 
 				{% if article.createdAt == article.updatedAt %}
 					Creation date:
-					{{ article.createdAt|date('Y-m-d H:i') }}
+					{{ article.createdAt|date('Y-m-d H:i') }},
 				{% else %}
 					Creation date:
 					{{ article.createdAt|date('Y-m-d H:i') }}, last updated:
-					{{ article.updatedAt|date('Y-m-d H:i') }}
+					{{ article.updatedAt|date('Y-m-d H:i') }},
 				{% endif %}
 
 				{% if article.author %}
-					by {{ article.author }}
+                    auteur: {{ article.author }}
 				{% endif %}
 
                 {% if is_granted("ROLE_ADMIN") %}
-                    <div>
-                        <a href="{{ path('app_article_edit', {'id': article.id}) }}" class="btn btn-primary btn-sm">Edit</a>
-                        <a href="{{ path('app_article_delete', {'id': article.id}) }}" class="btn btn-danger btn-sm">Delete</a>
+                <div>
+                    <a href="{{ path('app_article_edit', {'id': article.id}) }}" class="btn btn-primary btn-sm">Edit</a>
+                    <a href="{{ path('app_article_delete', {'id': article.id}) }}" class="btn btn-danger btn-sm">Delete</a>
                     </div>
                 {% endif %}
 
